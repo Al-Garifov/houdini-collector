@@ -7,21 +7,10 @@
 
   <tool name="collector" label="Collect Files" icon="hicon:/SVGIcons.index?BUTTONS_list_reorderup.svg">
     <script scriptType="python"><![CDATA[
-from ui import dialog
-import houdini_parser
-from PySide2 import QtCore
+import main
 import importlib
-
-importlib.reload(houdini_parser)
-importlib.reload(dialog)
-
-refs = houdini_parser.run()
-
-t = dialog.SubmitDialog()
-t.setParent(hou.qt.mainWindow(), QtCore.Qt.Window)
-t.tree_list.addPaths(refs)
-t.update_total_size()
-t.show()
+importlib.reload(main)
+main.run()
 ]]></script>
   </tool>
 
