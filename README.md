@@ -1,4 +1,6 @@
 # Houdini scene collector
+![image](https://github.com/Al-Garifov/houdini-collector/assets/113169696/4ee590ed-4840-47d9-b648-92e6e486057f)
+
 
 Collector parses a HIP file and USD files recursively and automatically:
 - create a copy of them in another folder so you can easily send the whole scene with all dependencies 
