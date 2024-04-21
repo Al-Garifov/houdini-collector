@@ -21,7 +21,7 @@ def get_env_lights():
     return parms
 
 
-def parse(path=None):
+def parse(frame, path=None):
     refs = set()
     refs.add(hou.hipFile.path())
     if path:
@@ -35,12 +35,12 @@ def parse(path=None):
     for parm in parms:
         if not parm or not parm.eval():
             continue
-        ref = os.path.abspath(hou.text.expandString(parm.eval()))
+        ref = os.path.abspath(hou.text.expandString(parm.evalAtFrame(frame)))
         if os.path.isfile(ref) and "~1" not in ref:
             refs.add(ref.replace("\\", "/"))
         else:
             try:
-                ref = get_long_path(hou.text.expandString(parm.eval()))
+                ref = get_long_path(hou.text.expandString(parm.evalAtFrame(frame)))
                 if os.path.isfile(ref):
                     refs.add(ref.replace("\\", "/"))
             except:
