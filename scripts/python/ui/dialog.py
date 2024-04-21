@@ -36,10 +36,14 @@ class SubmitDialog(QDialog):
     def save_files(self):
         target_dir = hou.ui.selectFile(file_type=hou.fileType.Directory)
         target_dir = hou.text.expandString(target_dir)
-        for file in self.tree_list.files:
-            file_dir = os.path.dirname(file)
-            file_target_dir = os.path.join(target_dir, file_dir.replace(":", ""))
-            os.makedirs(file_target_dir, exist_ok=True)
-            shutil.copy(file, file_target_dir)
+        with hou.InterruptableOperation("Saving scene dependencies...", open_interrupt_dialog=True) as oper:
+            oper.updateProgress(0)
+            for i, file in enumerate(self.tree_list.files):
+                oper.updateProgress(i/len(self.tree_list.files))
+                file_dir = os.path.dirname(file)
+                file_target_dir = os.path.join(target_dir, file_dir.replace(":", ""))
+                os.makedirs(file_target_dir, exist_ok=True)
+                shutil.copy(file, file_target_dir)
+        hou.ui.displayMessage("Saved successfully!")
 
 
