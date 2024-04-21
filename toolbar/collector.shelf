@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shelfDocument>
+  <!-- This file contains definitions of shelves, toolbars, and tools.
+ It should not be hand-edited when it is being used by the application.
+ Note, that two definitions of the same element are not allowed in
+ a single file. -->
+
+  <tool name="collector" label="Collect Files" icon="hicon:/SVGIcons.index?BUTTONS_list_reorderup.svg">
+    <script scriptType="python"><![CDATA[
+import widget
+import houdini_parser
+from PySide2 import QtCore
+import importlib
+
+importlib.reload(houdini_parser)
+importlib.reload(widget)
+
+refs = houdini_parser.run()
+
+t = widget.SubmitDialog()
+t.setParent(hou.qt.mainWindow(), QtCore.Qt.Window)
+t.tree_list.addPaths(refs)
+t.update_total_size()
+t.show()
+]]></script>
+  </tool>
+
+  <toolshelf name="collector_shelf" label="Collector">
+    <memberTool name="collector"/>
+  </toolshelf>
+</shelfDocument>
