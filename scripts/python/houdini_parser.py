@@ -1,6 +1,4 @@
 import importlib
-import time
-
 import usd_parser
 import hip_parser
 

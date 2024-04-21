@@ -10,6 +10,6 @@ Collector parses a HIP file and USD files recursively and automatically:
 Just copy repo contents to your `~/Documents/houdini19.5` folder.
 
 ## Structure:
-- You can find PyQT samples in `scripts/widget.py`.
+- You can find PyQT samples in `scripts/python/ui` module.
 
-- You can find HIP and USD parsing logic inside of `scripts/hip_parser.py` and `scripts/usd_parser.py`.
+- You can find HIP and USD parsing logic inside of `scripts/python/hip_parser.py` and `scripts/python/usd_parser.py`.
