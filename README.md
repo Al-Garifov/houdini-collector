@@ -6,6 +6,8 @@ Collector parses a HIP file and USD files recursively and automatically:
 - upload to amazon-like S3 (not implemented yet)
 - store them into an archive or library (not implemented yet)
 
+### Collector Dialog accepts drag-n-drop of files and even folders you want to add mannualy.
+
 ## To install:
 Just copy repo contents to your `~/Documents/houdini19.5` folder.
 
