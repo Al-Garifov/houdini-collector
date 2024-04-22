@@ -11,7 +11,7 @@ Collector parses a HIP file and USD files recursively and automatically:
 ### Collector Dialog accepts drag-n-drop of files and even folders you want to add mannualy.
 
 ## To install:
-Just copy repo contents to your `~/Documents/houdini19.5` folder.
+Just copy repo contents to your `~/Documents/houdini19.5` folder and turn on "Collector" shelf.
 
 ## Structure:
 - You can find PyQT samples in `scripts/python/ui` module.
