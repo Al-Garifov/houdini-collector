@@ -6,6 +6,8 @@ import hou
 
 
 def run():
+    if hou.hipFile.hasUnsavedChanges() or hou.hipFile.isNewFile():
+        raise RuntimeError("Please save scene before running collector.")
     with hou.InterruptableOperation("Parsing scene...", open_interrupt_dialog=True) as oper:
         oper.updateProgress(0)
         start_frame = int(hou.playbar.frameRange()[0])
