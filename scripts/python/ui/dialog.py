@@ -5,7 +5,7 @@ from PySide2.QtWidgets import QDialog, QVBoxLayout, QHBoxLayout, QPushButton, QL
 import hou
 
 from .listview import CustomListView
-from .utility import get_human_readable
+from .utility import get_human_readable, clean_dirname
 
 
 class SubmitDialog(QDialog):
@@ -41,7 +41,7 @@ class SubmitDialog(QDialog):
             for i, file in enumerate(self.tree_list.files):
                 oper.updateProgress(i/len(self.tree_list.files))
                 file_dir = os.path.dirname(file)
-                file_target_dir = os.path.join(target_dir, file_dir.replace(":", ""))
+                file_target_dir = os.path.join(target_dir, clean_dirname(file_dir))
                 os.makedirs(file_target_dir, exist_ok=True)
                 shutil.copy(file, file_target_dir)
         hou.ui.displayMessage("Saved successfully!")

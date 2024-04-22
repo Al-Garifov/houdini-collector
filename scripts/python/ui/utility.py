@@ -7,7 +7,6 @@ sys.path.insert(0, path)
 from sentry_sdk import capture_exception
 import sentry_sdk
 
-
 sentry_sdk.init(
     dsn="https://907fc1d47a6b6e29691284fceac1d73c@o4507125362458624.ingest.us.sentry.io/4507125364162560",
     # Set traces_sample_rate to 1.0 to capture 100%
@@ -18,6 +17,7 @@ sentry_sdk.init(
     # We recommend adjusting this value in production.
     profiles_sample_rate=1.0,
 )
+
 
 def get_human_readable(size):
     suffixes = ["bytes", "KB", "MB", "GB", "TB", "PB"]
@@ -38,4 +38,12 @@ def capture_to_sentry(func):
             # Alternatively the argument can be omitted
             capture_exception(e)
             raise e
+
     return wrapper
+
+
+def clean_dirname(dirname):
+    dirname = dirname.replace(":", "")
+    if dirname[0] == '/':  # remove leading slash for os.path.join to work properly
+        dirname = dirname[1:]
+    return dirname
