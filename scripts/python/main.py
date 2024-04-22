@@ -39,4 +39,10 @@ def run():
     t.setParent(hou.qt.mainWindow(), QtCore.Qt.Window)
     t.tree_list.addPaths(refs)
     t.update_total_size()
+    if len(t.tree_list.error_files) > 0:
+        formatted_list = "There are troubles with this files:\n"
+        for f in t.tree_list.error_files:
+            formatted_list += f + "\n"
+        sentry_sdk.capture_message(formatted_list)
+        hou.ui.displayMessage(formatted_list)
     t.show()

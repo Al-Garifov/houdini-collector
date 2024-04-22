@@ -12,6 +12,7 @@ class CustomListView(QTreeWidget):
     def __init__(self, parent=None):
         super(CustomListView, self).__init__(parent)
         self.files = set()
+        self.error_files = set()
         self.fileDropped = Signal(list)
         self.total_size = 0
         self.root_dialog = None
@@ -54,7 +55,11 @@ class CustomListView(QTreeWidget):
             event.ignore()
 
     def addLeaf(self, link, prev):
-        size = os.path.getsize(link)
+        try:
+            size = os.path.getsize(link)
+        except:
+            self.error_files.add(link)
+            return
         self.total_size += size
         size = get_human_readable(size)
         new_child = QTreeWidgetItem([os.path.basename(link), size])
