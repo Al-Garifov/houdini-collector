@@ -3,25 +3,23 @@ import os.path
 from pxr import Usd, Vt
 
 
-def get_asset_paths(usd_abs_path):
-    stage = Usd.Stage.Open(usd_abs_path)
-
+def get_asset_paths(stage):
     paths = set()
     for prim in stage.TraverseAll():
         for name in prim.GetPropertyNames():
             is_path = False
             attr = prim.GetAttribute(name)
-            if attr.GetTypeName() == "asset":
+            attr_type = attr.GetTypeName()
+            if attr_type == "asset":
                 is_path = True
-            elif attr.GetTypeName == "string":
-                # TODO: check if it is a path
-                pass
             if is_path and attr.Get():
                 specs = attr.GetPropertyStack(0)
                 dir = None
                 for spec in specs:
                     dir = os.path.dirname(str(spec.layer.resolvedPath))
-                paths.add(os.path.abspath(dir + "/" + attr.Get().path).replace("\\", "/"))
+                path = os.path.abspath(dir + "/" + attr.Get().path).replace("\\", "/")
+                paths.add(path)
+                # print(dir, attr.Get().path)
     return paths
 
 
@@ -33,8 +31,9 @@ def get_all_references(root_stage_abs_path):
 
 def get_references(stage_abs_path, refs):
     if os.path.isfile(stage_abs_path):
-        refs.add(stage_abs_path.replace("\\", "/"))
         stage = Usd.Stage.Open(stage_abs_path)
+        refs.add(stage_abs_path.replace("\\", "/"))
+        refs.update(get_asset_paths(stage))
         root = stage.GetRootLayer()
         for ref in root.GetExternalReferences():
             stage_path = os.path.abspath(os.path.dirname(stage_abs_path) + "/" + ref)

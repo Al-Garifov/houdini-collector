@@ -22,7 +22,6 @@ def run():
                 if ref in refs:
                     continue
                 if ".usd" in ref:
-                    refs.update(usd_parser.get_asset_paths(ref))
                     refs.update(usd_parser.get_all_references(ref))
             refs.update(hip_refs)
 
