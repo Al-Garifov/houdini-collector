@@ -10,16 +10,19 @@ def get_env_lights():
     return parms
 
 
-def parse(frame, path=None):
-    refs = set()
-    refs.add(hou.hipFile.path())
-    if path:
-        hou.hipFile.load(path)
-
+def get_parms():
     parms = set()
     parms.update(get_env_lights())
     for parm, none in hou.fileReferences():
         parms.add(parm)
+    return parms
+
+
+def parse(parms, frame, path=None):
+    refs = set()
+    refs.add(hou.hipFile.path())
+    if path:
+        hou.hipFile.load(path)
 
     for parm in parms:
         if not parm or not parm.eval():

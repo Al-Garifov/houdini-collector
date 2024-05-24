@@ -15,9 +15,10 @@ def run():
         importlib.reload(hip_parser)
         importlib.reload(usd_parser)
         refs = set()
+        parms = hip_parser.get_parms()
         for frame in range(start_frame, end_frame + 1, 1):
             oper.updateProgress(frame/end_frame)
-            hip_refs = hip_parser.parse(frame=frame)
+            hip_refs = hip_parser.parse(parms, frame=frame)
             for ref in hip_refs:
                 if ref in refs:
                     continue

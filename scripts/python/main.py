@@ -33,6 +33,9 @@ def run():
     importlib.reload(houdini_parser)
     importlib.reload(dialog)
 
+    mode = hou.updateModeSetting()
+    hou.setUpdateMode(hou.updateMode.Manual)
+
     refs = houdini_parser.run()
 
     t = dialog.SubmitDialog()
@@ -46,3 +49,5 @@ def run():
         sentry_sdk.capture_message(formatted_list)
         hou.ui.displayMessage(formatted_list)
     t.show()
+
+    hou.setUpdateMode(mode)
