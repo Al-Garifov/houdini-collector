@@ -1,6 +1,6 @@
 from PySide2.QtWidgets import QToolButton, QStyle
 import os
-import webbrowser
+import hou
 
 
 class ToolButton(QToolButton):
@@ -32,4 +32,4 @@ class ToolButton(QToolButton):
                 parent = None
 
     def show_item(self):
-        webbrowser.open(os.path.dirname(self.link))
+        hou.ui.showInFileBrowser(self.link)

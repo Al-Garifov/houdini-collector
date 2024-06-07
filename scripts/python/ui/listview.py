@@ -102,8 +102,8 @@ class CustomListView(QTreeWidget):
                         prev.addChild(new_child)
                         prev = new_child
                     else:
-                        if "<udim>" in link:
-                            for udim in glob.glob(link.replace("<udim>", "*")):
+                        if "<udim>" in link or "<UDIM>" in link:
+                            for udim in glob.glob(link.replace("<udim>", "*").replace("<UDIM>", "*")):
                                 self.addLeaf(udim, prev)
                         else:
                             self.addLeaf(link, prev)

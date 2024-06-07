@@ -1,4 +1,6 @@
 import importlib
+import os
+
 import usd_parser
 import hip_parser
 
@@ -29,6 +31,10 @@ def run():
         # FIXME: fix case-sensitive scenarios
         fixed_refs = set()
         for ref in refs:
-            fixed_refs.add(ref.lower())
+            if os.name == "posix":
+                fixed_ref = ref
+            else:
+                fixed_ref = ref.lower()
+            fixed_refs.add(fixed_ref)
 
     return fixed_refs
