@@ -17,3 +17,7 @@ Just copy repo contents to your `~/Documents/houdini19.5` folder and turn on "Co
 - You can find PyQT samples in `scripts/python/ui` module.
 
 - You can find HIP and USD parsing logic inside of `scripts/python/hip_parser.py` and `scripts/python/usd_parser.py`.
+
+___
+## Special thanks to:
+https://github.com/alexwheezy
